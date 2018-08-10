@@ -1,16 +1,27 @@
 'use strict';
 
-var bodyParser = require('body-parser');
-var express = require('express');
-var path = require('path');
-var app = express();
+var _bodyParser = require('body-parser');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var router = express.Router();
+var _express = require('express');
 
-var staticFiles = express.static(path.join(__dirname, '../../client/build'));
+var _express2 = _interopRequireDefault(_express);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var app = (0, _express2.default)();
+
+app.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.urlencoded({ extended: false }));
+
+var router = _express2.default.Router();
+
+var staticFiles = _express2.default.static(_path2.default.join(__dirname, '../../client/build'));
 app.use(staticFiles);
 
 router.get('/cities', function (req, res) {
