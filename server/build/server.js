@@ -45,7 +45,7 @@ var staticFiles = _express2.default.static(_path2.default.join(__dirname, '../..
 app.use(staticFiles);
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Cache-Control, Pragma');
@@ -70,6 +70,6 @@ app.use('/users', requireAuth, userRouter);
 app.use('/*', staticFiles);
 
 app.set('port', process.env.PORT || 3001);
-app.listen(app.get('port'), function () {
+http.listen(app.get('port'), function () {
   console.log('Listening on ' + app.get('port'));
 });
