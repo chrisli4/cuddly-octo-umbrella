@@ -20,10 +20,12 @@ class BoardForm extends Component {
 	}
 
 	onSubmit = (values) => {
-  		this.props.boardCreate(this.props.user, { userId: this.props.user.username, ...values })
-      this.setState({
-        modalOpen: false,
-      })
+      if(values.title && values.description) {
+    		this.props.boardCreate(this.props.user, { userId: this.props.user.username, ...values })
+        this.setState({
+          modalOpen: false,
+        })
+      }
   	}
 
   render() {

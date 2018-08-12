@@ -1,4 +1,5 @@
 import {
+	BOARD_CURRENT,
 	BOARD_CREATE,
 	BOARD_CREATE_SUCCESS,
 	BOARD_CREATE_ERROR,
@@ -9,10 +10,11 @@ import {
 	BOARD_DELETE,
 	BOARD_DELETE_SUCCESS,
 	BOARD_DELETE_ERROR,
-	BOARD_CURRENT
 } from './constants'
 
 import makeActionCreator from '../makeActionCreator'
+
+export const boardCurrent 		= makeActionCreator(BOARD_CURRENT, 'id')
 
 export const boardCreate 		= makeActionCreator(BOARD_CREATE, 'user', 'board')
 export const boardCreateSuccess = makeActionCreator(BOARD_CREATE_SUCCESS, 'board')
@@ -26,5 +28,3 @@ export const boardUpdateError 	= makeActionCreator(BOARD_UPDATE_ERROR, 'error')
 export const boardDelete 		= makeActionCreator(BOARD_DELETE, 'user', 'board')
 export const boardDeleteSuccess = makeActionCreator(BOARD_DELETE_SUCCESS, 'board')
 export const boardDeleteError 	= makeActionCreator(BOARD_DELETE_ERROR, 'error')
-
-export const boardCurrent 		= makeActionCreator(BOARD_CURRENT, 'id')
