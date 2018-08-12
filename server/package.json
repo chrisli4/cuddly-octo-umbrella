@@ -17,6 +17,9 @@
     "shortid": "^2.2.12",
     "socket.io": "^2.1.1"
   },
+  "engines": {
+    "node": "9.11.2"
+  },
   "devDependencies": {
     "babel-register": "^6.26.0",
     "nodemon": "^1.18.3"
@@ -24,6 +27,6 @@
   "scripts": {
     "build": "babel . --ignore node_modules,build --out-dir build",
     "start": "nodemon -r dotenv/config -r babel-register server.js",
-    "start:prod": "node -r dotenv/config -r build/server.js"
+    "start:prod": "node -r dotenv/config -r ./build/server.js"
   }
 }

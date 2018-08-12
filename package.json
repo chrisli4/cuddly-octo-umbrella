@@ -1,7 +1,7 @@
 {
   "name": "cuddly-octo-umbrella",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "repository": "git@github.com:chrisli4/cuddly-octo-umbrella.git",
   "author": "chrisli4 <chrisli41@gmail.com>",
   "license": "MIT",
