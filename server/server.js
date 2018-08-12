@@ -3,6 +3,7 @@ require('dotenv').config()
 import bodyParser from 'body-parser'
 import express from 'express'
 import path from 'path'
+import mongoose from 'mongoose'
 const app = express()
 
 // passport
@@ -25,8 +26,7 @@ io.on('connection', (socket) => {
 
 app.set('socketIo', io);
 
-const mongoose = require('mongoose');
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 const staticFiles = express.static(path.join(__dirname, '../../client/build'))
 app.use(staticFiles)

@@ -12,6 +12,10 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
+var _mongoose = require('mongoose');
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 require('dotenv').config();
@@ -38,8 +42,7 @@ io.on('connection', function (socket) {
 
 app.set('socketIo', io);
 
-var mongoose = require('mongoose');
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true });
+_mongoose2.default.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 var staticFiles = _express2.default.static(_path2.default.join(__dirname, '../../client/build'));
 app.use(staticFiles);

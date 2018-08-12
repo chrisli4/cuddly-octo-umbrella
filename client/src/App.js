@@ -17,9 +17,9 @@ class App extends Component {
 		return (
 			<div className="App">
 					<Switch>
-						<Route path='/register' component={Signup} />
-						<Route path='/login' component={Login} />
-						<Route path='/home' render={() => {
+						<Route exact path='/register' component={Signup} />
+						<Route exact path='/login' component={Login} />
+						<Route exact path='/home' render={() => {
 							return (
 								this.props.user.username ? 
 									<Dashboard />
@@ -27,6 +27,7 @@ class App extends Component {
 								)
 						}} />
 						/>
+						<Route exact path='/' component={Login} />
 					</Switch>
 			</div>
 			);
