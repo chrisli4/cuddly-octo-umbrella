@@ -22,7 +22,7 @@ class Dashboard extends Component {
 
 		this.props.dataRequest(this.props.user)
 
-		const socket = io()
+		const socket = io('http://cuddly-octo-umbrella.herokuapp.com:3001')
 
 		socket.on('connect', () => {
 			socket.emit('userConnected', this.props.user.username)
