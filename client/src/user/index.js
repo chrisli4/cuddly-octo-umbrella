@@ -24,7 +24,7 @@ class Profile extends Component {
 				<Header title='Profile' description='Edit your personal information'/>
 				<hr />
 				<Card className='mx-auto mt-3' style={{maxWidth:"450px"}}>
-					<CardHeader border="default" color="default-color" className='text-center'>
+					<CardHeader border="default" color="primary-color" className='text-center'>
 						<h3 className='py-1'>Profile</h3>
 					</CardHeader>
 					<CardBody>
@@ -43,7 +43,7 @@ class Profile extends Component {
 					</CardBody>
 					<CardFooter className='justify-content-center'>
 						<Row className='justify-content-center'>
-							<button className='btn btn-default' onClick={this.onSubmit}>Submit</button>
+							<button className='btn btn-primary' onClick={this.onSubmit}>Submit</button>
 						</Row>
 					</CardFooter>
 				</Card>

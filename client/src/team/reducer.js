@@ -1,7 +1,7 @@
 import {
+	TEAM_SHOW,
 	TEAM_SEND,
 	TEAM_SEND_SUCCESS,
-	TEAM_SEND_NOT_FOUND,
 	TEAM_SEND_ERROR,
 	TEAM_SEND_CANCEL,
 	TEAM_SEND_CANCEL_ERROR,
@@ -27,14 +27,22 @@ import { deleteById } from '../lib/reducers'
 
 const initialState = {
 	userId: '',
-	found: '',
 	team: [],
 	teamSend: [],
 	teamReceived: [],
-	requesting: false,
-	successful: false,
 	messages: [],
 	errors: [],
+	show: '',
+	sendRequesting: false,
+	sendSuccessful: false,
+	cancelRequesting: false,
+	cancelSuccessful: false,
+	acceptRequesting: false,
+	acceptSuccessful: false,
+	removeRequesting: false,
+	removeSuccessful: false,
+	declineRequesing: false,
+	declineSuccessful: false,
 }
 
 function isEmpty(state, action, func) {
@@ -59,14 +67,20 @@ const reducer = function(state = initialState, action) {
 				...action.data.team
 			}
 
+		case TEAM_SHOW:
+			return {
+				...state,
+				show: action.status
+			}
+
 		case TEAM_SEND:
 			return {
 				...state,
-				found: '',
-				requesting: true,
-				successful: false,
+				show: '',
+				sendRequesting: true,
+				sendSuccessful: false,
 				messages: [{
-					body: `sending team invite to ${action.userToSend}...`,
+					body: `Sending team invite to ${action.userToSend}...`,
 					time: Date.now()
 				}],
 			}
@@ -74,62 +88,75 @@ const reducer = function(state = initialState, action) {
 		case TEAM_SEND_SUCCESS:
 			return {
 				...state,
-				found: true,
-				requesting: false,
-				successful: true,
-				teamSend: isEmpty(state.teamSend, action.user, concat)
-			}
-
-		case TEAM_SEND_NOT_FOUND:
-			return {
-				...state,
-				found: false
+				sendRequesting: false,
+				sendSuccessful: true,
+				show: 'send',
+				teamSend: isEmpty(state.teamSend, action.user, concat),
+				messages: [{
+					body: `Team invite to ${action.user} successfully sent.`,
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_SEND_ERROR:
 			return {
 				...state,
-				requesting: false,
-				successful: false,
-				errors: state.errors.concat([{
-					body: action.error.toString(),
-					time: Date.now(),
-				}])
+				sendRequesting: false,
+				sendSuccessful: false,
+				show: 'send',
+				errors: [{
+					body: `Error sending invite to team member.`,
+					error: action.error.toString(),
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_SEND_CANCEL:
 			return {
 				...state,
-				requesting: true,
-				successful: false,
+				show: '',
+				cancelRequesting: true,
+				cancelSuccessful: false,
+				messages: [{
+					body: `Cancelling team invite to ${action.userToCancel}...`,
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_SEND_CANCEL_SUCCESS:
 			return {
 				...state,
 				teamSend: isEmpty(state.teamSend, action.user, deleteById),
-				requesting: false,
-				successful: true,
+				cancelRequesting: false,
+				cancelSuccessful: true,
+				show: 'cancel',
+				messages: [{
+					body: `Invite to ${action.user} successfully cancelled.`,
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_SEND_CANCEL_ERROR:
 			return {
 				...state,
-				requesting: false,
-				successful: false,
-				errors: state.errors.concat([{
-					body: action.error.toString(),
-					time: Date.now(),
-				}])
+				cancelRequesting: false,
+				cancelSuccessful: false,
+				show: 'cancel',
+				errors: [{
+					body: `Error cancelling invite to team member.`,
+					error: action.error.toString(),
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_ACCEPT:
 			return {
 				...state,
-				requesting: true,
-				successful: false,
+				show: '',
+				acceptRequesting: true,
+				acceptSuccessful: false,
 				messages: [{
-					body: `accepting invite from ${action.userToAccept}...`,
+					body: `Accepting invite from ${action.userToAccept}...`,
 					time: Date.now()
 				}],
 			}
@@ -140,28 +167,36 @@ const reducer = function(state = initialState, action) {
 				team: isEmpty(state.team, action.user, concat),
 				teamSend: deleteById(state.teamSend, action.user),
 				teamReceived: deleteById(state.teamReceived, action.user),
-				requesting: false,
-				successful: true,
+				acceptRequesting: false,
+				acceptSuccessful: true,
+				show: 'accept',
+				messages: [{
+					body: `Successfully accepted invite from ${action.user}.`,
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_ACCEPT_ERROR:
 			return {
 				...state,
-				requesting: false,
-				successful: false,
-				errors: state.errors.concat([{
-					body: action.error.toString(),
-					time: Date.now(),
-				}])
+				acceptRequesting: false,
+				acceptSuccessful: false,
+				show: 'accept',
+				errors: [{
+					body: `Error accepting invite from team member.`,
+					error: action.error.toString(),
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_DECLINE:
 			return {
 				...state,
-				requesting: true,
-				successful: false,
+				show: '',
+				declineRequesing: true,
+				declineSuccessful: false,
 				messages: [{
-					body: `declining invite from ${action.userToDecline}...`,
+					body: `Declining invite from ${action.userToDecline}...`,
 					time: Date.now()
 				}],
 			}
@@ -170,28 +205,36 @@ const reducer = function(state = initialState, action) {
 			return {
 				...state,
 				teamReceived: isEmpty(state.teamReceived, action.user, deleteById),
-				requesting: false,
-				successful: true,
+				declineRequesing: false,
+				declineSuccessful: true,
+				show: 'decline',
+				messages: [{
+					body: `Successfully declined invite from ${action.user}`,
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_DECLINE_ERROR:
 			return {
 				...state,
-				requesting: false,
-				successful: false,
-				errors: state.errors.concat([{
-					body: action.error.toString(),
-					time: Date.now(),
-				}])
+				declineRequesing: false,
+				declineSuccessful: false,
+				show: 'decline',
+				errors: [{
+					body: `Error declining invite from team member.`,
+					error: action.error.toString(),
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_REMOVE:
 			return {
 				...state,
-				requesting: true,
-				successful: false,
+				show: '',
+				removeRequesting: true,
+				removeSuccessful: false,
 				messages: [{
-					body: `removing ${action.userToRemove} from team...`,
+					body: `Removing ${action.userToRemove} from team...`,
 					time: Date.now()
 				}],
 			}
@@ -199,20 +242,27 @@ const reducer = function(state = initialState, action) {
 		case TEAM_REMOVE_SUCCESS:
 			return {
 				...state,
-				requesting: false,
-				successful: true,
-				team: deleteById(state.team, action.user)
+				removeRequesting: false,
+				removeSuccessful: true,
+				show: 'remove',
+				team: deleteById(state.team, action.user),
+				messages: [{
+					body: `Successfully removed ${action.user} from your team.`,
+					time: Date.now()
+				}],
 			}
 
 		case TEAM_REMOVE_ERROR:
 			return {
 				...state,
-				requesting: false,
-				successful: false,
-				errors: state.errors.concat([{
-					body: action.error.toString(),
-					time: Date.now(),
-				}])
+				removeRequesting: false,
+				removeSuccessful: false,
+				show: 'remove',
+				errors: [{
+					body: `Error removing team member.`,
+					error: action.error.toString(),
+					time: Date.now()
+				}],
 			}
 
 		case INVITE_RECEIVE:

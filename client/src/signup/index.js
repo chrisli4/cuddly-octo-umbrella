@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import signupRequest from './actions';
 import { Container, Row, Col } from 'mdbreact';
 import { Field, reduxForm } from 'redux-form'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Route, Router, Link } from "react-router-dom";
 import renderField from '../elements/field'
 import validate from '../lib/validate'
 

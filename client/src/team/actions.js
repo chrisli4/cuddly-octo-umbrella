@@ -1,4 +1,5 @@
 import {
+	TEAM_SHOW,
 	TEAM_SEND,
 	TEAM_SEND_SUCCESS,
 	TEAM_SEND_NOT_FOUND,
@@ -22,6 +23,8 @@ import {
 } from './constants'
 
 import makeActionCreator from '../makeActionCreator'
+
+export const teamShow 				= makeActionCreator(TEAM_SHOW, 'status')
 
 export const teamSend 				= makeActionCreator(TEAM_SEND, 'user', 'userToSend')
 export const teamSendSuccess 		= makeActionCreator(TEAM_SEND_SUCCESS, 'user')

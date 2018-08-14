@@ -110,14 +110,14 @@ class CustomCard extends Component {
 			</ListGroupItem>
 			<Modal isOpen={this.state.modalOpen} toggle={this.onToggle} size="lg">
 				<CardHeader className="p-3" color="primary-color">
-					<Input 
-						name='title'
-						value={this.props.card.title}
-						disabled={this.state.disableTitle}
-						onDoubleClick={this.onDisableTitle} 
-						onChange={this.onUpdate}  
-						innerClass='form-control-plaintext h2-responsive text-center white-text'
-					/>
+				<Input 
+					name='title'
+					value={this.props.card.title}
+					disabled={this.state.disableTitle}
+					onDoubleClick={this.onDisableTitle} 
+					onChange={this.onUpdate}
+					innerClass='form-control-plaintext h2-responsive white-text text-center'
+				/>
 				</CardHeader>
 				<CardBody>
 						<div className="d-flex justify-content-between">
@@ -149,7 +149,7 @@ class CustomCard extends Component {
 											<option key={member} value={member}>{member}</option>
 											))}
 								</select>
-								<button className='btn btn-primary btn-sm' size="sm" onClick={this.onAddMember}>Add User</button>
+								<button className='btn btn-primary btn-sm' onClick={this.onAddMember}>Add User</button>
 							</FormInline>
 						</div>
 				</CardBody>

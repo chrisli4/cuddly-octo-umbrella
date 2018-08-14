@@ -130,7 +130,7 @@ router.post('/accept', function(req, res) {
 							res.status(500).json(e.stack)
 							)
 			} else 
-				res.status(200).json(null)
+				res.status(500).json(e.stack)
 			})
 })
 
@@ -153,7 +153,7 @@ router.post('/send', function(req, res) {
 							res.status(200).json(userB)
 							})
 				} else
-					res.status(200).json(null)
+					res.status(404).json({ error: 'USER NOT FOUND'})
 			})
 			.catch(e =>
 				res.status(500).json(e.stack)

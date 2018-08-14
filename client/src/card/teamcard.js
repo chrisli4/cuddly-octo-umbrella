@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classNames from 'classnames'
 
 import { cardUpdate, cardUpdateSubmit } from './actions';
+
 import { CardHeader, CardBody, CardFooter, ListGroup, ListGroupItem, Row, Modal } from 'mdbreact'
+
+import Input from '../components/input'
+import Textarea from '../components/textarea'
+
 
 class TeamCard extends Component {
 
@@ -12,7 +17,7 @@ class TeamCard extends Component {
 		this.state = {
 			disableTitle: true,
 			disableDescr: true,
-			modalOpen: false,
+			modalOpen: false
 		}
 	}
 
@@ -52,59 +57,64 @@ class TeamCard extends Component {
 		this.props.cardUpdate(this.props.card, 'completed', !this.props.card.completed)
 	}
 
-		render() {
+	render() {
 
 		let comp = classNames('btn btn-sm', {
 			'btn-success': this.props.card.completed,
 			'btn-danger': !this.props.card.completed
 		})
+
 		return (
 		<React.Fragment>
-		<ListGroupItem hover className="text-center" onClick={this.onToggle}>
-			<span className="small">
-					{this.props.card.title}
-			</span>
-		</ListGroupItem>
-		<Modal isOpen={this.state.modalOpen} toggle={this.onToggle} size="lg">
-	<CardHeader className="p-3" color="primary-color">
-					<div onDoubleClick={this.onDisableTitle}>
-						<input onChange={this.onUpdate} disabled={this.state.disableTitle} name='title' value={this.props.card.title} className='form-control-plaintext h2-responsive text-center white-text'/>
-					</div>
-		</CardHeader>
-		<CardBody>
-
-			<div className="d-flex justify-content-end">
-						<button className={comp} onClick={this.onComplete} name='completed' value={this.props.card.completed}>{this.props.card.completed ? 'completed' : 'incomplete' }</button>
-					</div>
-					<hr/>
-					<label>Description</label>
-					<div onDoubleClick={this.onDisableDescr}>
-						<input onChange={this.onUpdate} disabled={this.state.disableDescr} name='description' value={this.props.card.description} rows="3" spellCheck="false" className="form-control-plaintext py-3 px-2 mb-3"/>
-					</div>
-					<hr/>
-					<label>Members</label>
+			<ListGroupItem hover className="text-center" onClick={this.onToggle}>
+				<span className="small">
+						{this.props.card.title}
+				</span>
+			</ListGroupItem>
+			<Modal isOpen={this.state.modalOpen} toggle={this.onToggle} size="lg">
+				<CardHeader className="p-3" color="primary-color">
+					<Input 
+						name='title'
+						value={this.props.card.title}
+						disabled={this.state.disableTitle}
+						onDoubleClick={this.onDisableTitle} 
+						onChange={this.onUpdate}  
+						innerClass='form-control-plaintext h2-responsive text-center white-text'
+					/>
+				</CardHeader>
+				<CardBody>
+						<div className="d-flex justify-content-between">
+							<label>Project Owner: {this.props.card.userId}</label>
+							<button className={comp} onClick={this.onComplete} name='completed' value={this.props.card.completed}>{this.props.card.completed ? 'completed' : 'incomplete' }</button>
+						</div>
+						<hr/>
+						<label>Description</label>
+						<Textarea 
+							name='description' 
+							value={this.props.card.description}
+							disabled={this.state.disableDescr}
+							onDoubleClick={this.onDisableDescr}
+							onChange={this.onUpdate}
+							innerClass="form-control-plaintext py-3 px-2 mb-3"
+						/>
+						<hr/>
 						<ListGroup>
-						{ this.props.card.members.map(member => 
-							<ListGroupItem key={member}>{member}
-							</ListGroupItem>
-							)}
+							{ this.props.card.members.map(member => (
+								<ListGroupItem key={member}>{ member }</ListGroupItem>
+							))}
 						</ListGroup>
-					<hr/>
-					<div>
-
-					</div>
-		</CardBody>
-		<CardFooter>
-		<Row className='justify-content-center'>
-					<button className='btn btn-primary' onClick={this.onUpdateSubmit}>Save Changes</button>
-
+				</CardBody>
+				<CardFooter>
+					<Row className='justify-content-center'>
+						<button className='btn btn-primary' onClick={this.onUpdateSubmit}>Save Changes</button>
 					</Row>
-		</CardFooter>
-		</Modal>
+				</CardFooter>
+			</Modal>
 		</React.Fragment>
 			)
 	}
 }
+
 
 const mapStateToProps = (state, ownProps) => ({
 	card: state.cards.byId[ownProps._id],

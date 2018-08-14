@@ -1,3 +1,5 @@
+export const TEAM_SHOW					= 'TEAM_SHOW'
+
 export const TEAM_SEND 					= 'TEAM_SEND'
 export const TEAM_SEND_SUCCESS 			= 'TEAM_SEND_SUCCESS'
 export const TEAM_SEND_NOT_FOUND		= 'TEAM_SEND_NOT_FOUND'
