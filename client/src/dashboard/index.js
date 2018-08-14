@@ -22,7 +22,7 @@ class Dashboard extends Component {
 
 		this.props.dataRequest(this.props.user)
 
-		const socket = io('http://localhost:3001')
+		const socket = io()
 
 		socket.on('connect', () => {
 			socket.emit('userConnected', this.props.user.username)
