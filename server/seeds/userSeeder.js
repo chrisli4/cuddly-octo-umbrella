@@ -13,7 +13,7 @@ function getRandomInt(min, max) {
 }
 
 mongooseeder.seed({
-  mongodbUrl: 'mongodb://heroku_kfpm55q0:oqpadjiohh1g2iihs3p2lujcgg@ds119732.mlab.com:19732/heroku_kfpm55q0',
+  mongodbUrl: process.env.MONGODB_URI,
   models: { User, Team },
   clean: true,
   mongoose: mongoose,

@@ -2168,6 +2168,10 @@ mongoose@^5.2.7:
     regexp-clone "0.0.1"
     sliced "1.0.1"
 
+mongooseeder@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/mongooseeder/-/mongooseeder-2.0.6.tgz#e7e7752abe27473aa3b978a0abd2bf5fafc518cf"
+
 mpath@0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/mpath/-/mpath-0.4.1.tgz#ed10388430380bf7bbb5be1391e5d6969cb08e89"
