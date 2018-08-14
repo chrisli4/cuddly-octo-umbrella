@@ -8,7 +8,7 @@ function getRandomInt(min, max) {
 }
 
 mongooseeder.seed({
-	mongodbUrl: 'mongodb://chris:djellon1@ds051933.mlab.com:51933/djello',
+	mongodbUrl: process.env.MONGODB_URI,
 	models: { Team },
 	clean: true,
 	mongoose: mongoose,

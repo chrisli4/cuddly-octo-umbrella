@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 }
 
 mongooseeder.seed({
-  mongodbUrl: 'mongodb://chris:djellon1@ds051933.mlab.com:51933/djello',
+  mongodbUrl: process.env.MONGODB_URI,
   useNewUrlParser: true,
   models: { Card },
   clean: true,
@@ -27,7 +27,7 @@ mongooseeder.seed({
         _id: `foobar${ i }`,
         userId: `user1`,
         listId: `bar${ genRan }`,
-        title: faker.name.title(),
+        title: faker.commerce.productName(),
         description: faker.company.bs(),
       })
 
