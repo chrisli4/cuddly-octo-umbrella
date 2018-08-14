@@ -10,7 +10,7 @@ function getRandomInt(min, max) {
 }
 
 mongooseeder.seed({
-  mongodbUrl: process.env.MONGODB_URI,
+  mongodbUrl: 'mongodb://heroku_kfpm55q0:oqpadjiohh1g2iihs3p2lujcgg@ds119732.mlab.com:19732/heroku_kfpm55q0',
   useNewUrlParser: true,
   models: { Card },
   clean: true,

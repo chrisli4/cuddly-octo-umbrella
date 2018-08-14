@@ -15,6 +15,7 @@ function getRandomInt(min, max) {
 mongooseeder.seed({
   mongodbUrl: process.env.MONGODB_URI,
   models: { Board, List, Card },
+  useNewUrlParser: true,
   clean: true,
   mongoose: mongoose,
   seeds: () => {
