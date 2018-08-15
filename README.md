@@ -44,6 +44,16 @@ Your client app should now be running on [localhost:3000](http://localhost:3000/
 
 The application authenticates API requests using JSON web token generated on login. 
 
+### API Calls
+
+Updates to the DB are made via REST API calls. Each of the following endpoints allow: PUT, DELETE, POST, GET. Do not specify a specific item when creating ex. (/users/:user/boards/). A JSON web token is required in the header for authentication.
+
+```
+Boards: 'http://localhost:3001/users/:user/boards/:board'
+Lists: 'http://localhost:3001/users/:user/boards/:board/lists/:list'
+Cards: 'http://localhost:3001/users/:user/boards/:board/lists/:list/cards/:card'
+```
+
 ### Boards/Lists/Cards
 
 Users are able to create/update/delete boards using the UI. When updating a board, you'll need to click on "Save Changes" or the changes you've made will be reverted on next login. Double-click on the board title or description to enable EDIT mode and double click again to disable.
